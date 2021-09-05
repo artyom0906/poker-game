@@ -1,4 +1,4 @@
-package com.artyom.game.engine.graphics;
+package com.artyom.game.api.graphics;
 
 import java.awt.image.BufferedImage;
 

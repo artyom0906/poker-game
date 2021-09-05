@@ -3,6 +3,8 @@ package com.artyom.game.texashodlem.state;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
 
+import java.util.Map;
+
 public class EndRound implements GameState {
     @Override
     public void next(GameManager game) {
@@ -18,4 +20,5 @@ public class EndRound implements GameState {
     public void doAction(GameManager game) {
 
     }
+
 }

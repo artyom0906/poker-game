@@ -2,6 +2,12 @@ package com.artyom.game.texashodlem.state;
 
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
+import com.artyom.game.texashodlem.cards.Card;
+import com.artyom.game.texashodlem.TexasHoldem;
+import com.artyom.game.texashodlem.cards.Combo;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
+
+import java.util.*;
 
 public class Showtime implements GameState {
     @Override
@@ -18,4 +24,5 @@ public class Showtime implements GameState {
     public void doAction(GameManager game) {
 
     }
+
 }

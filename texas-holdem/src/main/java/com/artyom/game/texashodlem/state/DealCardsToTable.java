@@ -2,7 +2,7 @@ package com.artyom.game.texashodlem.state;
 
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
-import com.artyom.game.api.cards.Card;
+import com.artyom.game.texashodlem.cards.Card;
 import com.artyom.game.texashodlem.TexasHoldem;
 
 import java.util.ArrayList;
@@ -28,12 +28,11 @@ public class DealCardsToTable implements GameState {
                 Card card = texasHoldem.getDeck().takeTop();
                 if (i < 3)
                     card.show();
-
                 card.setX((int) ((-(Card.SPRITE_SCALE_X*2.5)-25) + (Card.SPRITE_SCALE_X*i+i*10)));
-
                 table.add(card);
             }
             texasHoldem.setTable(table);
         }
     }
+
 }

@@ -2,6 +2,14 @@ package com.artyom.game.texashodlem.state;
 
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
+import com.artyom.game.api.PlayerEvent;
+import com.artyom.game.texashodlem.TexasHoldem;
+import com.artyom.game.texashodlem.exceptions.NotEnoughChipsException;
+import com.artyom.game.texashodlem.players.TexasHoldemEvent;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
+
+import java.util.Queue;
+
 
 public class BettingRound implements GameState {
     private final GameState prevState;
@@ -31,5 +39,14 @@ public class BettingRound implements GameState {
     @Override
     public void doAction(GameManager game) {
 
+    }
+    private void call(TexasHoldemPlayer player, TexasHoldem texasHoldem){
+        if (texasHoldem.getCurrentBet() > player.getCurrentBet()) {
+            try {
+                long call = texasHoldem.getCurrentBet() - player.getCurrentBet();
+                player.takeChips(call);
+                texasHoldem.setBank(texasHoldem.getBank() + call);
+            } catch (NotEnoughChipsException ignored) {}
+        }
     }
 }

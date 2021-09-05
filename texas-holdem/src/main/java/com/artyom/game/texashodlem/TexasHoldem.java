@@ -1,8 +1,9 @@
 package com.artyom.game.texashodlem;
 
 import com.artyom.game.api.*;
-import com.artyom.game.api.cards.Card;
-import com.artyom.game.api.cards.Deck;
+import com.artyom.game.texashodlem.cards.Card;
+import com.artyom.game.texashodlem.cards.Deck;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 import com.artyom.game.texashodlem.state.DealCardsToPlayers;
 
 import java.awt.*;
@@ -12,26 +13,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.artyom.game.texashodlem.players.HumanPlayer.HEIGHT;
-import static com.artyom.game.texashodlem.players.HumanPlayer.WIDTH;
-
 public class TexasHoldem extends GameManager implements GameScreen {
+
+    public static final int		WIDTH			= 800;
+    public static final int		HEIGHT			= 600;
 
     private GameState state = new DealCardsToPlayers();
     private final Deck deck;
 
     private final int DEFAULT_CHIPS = 1000;
-    public static Font font;
-
-    static {
-        try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\matro\\Documents\\kursach\\poker-game\\game\\src\\main\\resources\\W95FA.otf"));
-        } catch (FontFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private long bank;
+    private long currentBet;
 
     private List<Card> table;
 
@@ -40,9 +32,6 @@ public class TexasHoldem extends GameManager implements GameScreen {
         this.table = new ArrayList<>();
         deck = new Deck();
         deck.shuffle();
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-
-        ge.registerFont(font);
     }
 
     public GameState getState(){return state;}
@@ -69,15 +58,26 @@ public class TexasHoldem extends GameManager implements GameScreen {
         this.table = table;
     }
 
+    public long getBank() {
+        return bank;
+    }
+
+    public void setBank(long bank) {
+        this.bank = bank;
+    }
+
     public void showCards(int num){
         table.stream().limit(num).forEach(Card::show);
     }
 
     @Override
     public void init() {
-        System.out.println("hello world");
+        getPlayers().forEach(player -> {
+            ((TexasHoldemPlayer)player).onEvent(events -> {
+                state.handleEvent(events, this);
+            });
+        });
         this.doAction();
-        this.nextState();
         this.nextState();
         this.doAction();
     }
@@ -85,6 +85,7 @@ public class TexasHoldem extends GameManager implements GameScreen {
     @Override
     public void update(Input input) {
         this.getPlayers().forEach(player -> player.update(input));
+
     }
 
     @Override
@@ -92,8 +93,8 @@ public class TexasHoldem extends GameManager implements GameScreen {
     {
         if(!table.isEmpty()) {
             AffineTransform transform = new AffineTransform();
-            transform.translate(WIDTH / 2, HEIGHT / 2);
-            transform.translate(0, -Card.SPRITE_SCALE_Y / 2);
+            transform.translate(WIDTH / 2d, HEIGHT / 2d);
+            transform.translate(0, -Card.SPRITE_SCALE_Y / 2d);
             graphics.setTransform(transform);
             this.table.forEach(card -> {
                 card.render(graphics);
@@ -103,4 +104,15 @@ public class TexasHoldem extends GameManager implements GameScreen {
         this.getPlayers().forEach(player -> player.render(graphics));
     }
 
+    public long getCurrentBet() {
+        return currentBet;
+    }
+
+    public void setCurrentBet(long currentBet) {
+        this.currentBet = currentBet;
+    }
+
+    public List<Card> getTable() {
+        return table;
+    }
 }

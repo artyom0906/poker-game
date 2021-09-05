@@ -1,10 +1,10 @@
-package com.artyom.game.api.cards;
+package com.artyom.game.texashodlem.cards;
 
 import com.artyom.game.api.Entity;
 import com.artyom.game.api.Input;
-import com.artyom.game.engine.graphics.Sprite;
-import com.artyom.game.engine.graphics.SpriteSheet;
-import com.artyom.game.engine.graphics.TextureAtlas;
+import com.artyom.game.api.graphics.Sprite;
+import com.artyom.game.api.graphics.SpriteSheet;
+import com.artyom.game.api.graphics.TextureAtlas;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,12 +24,12 @@ public class Card extends Entity {
         this.rank = rank;
         this.suit = suit;
         this.hidden = hidden;
-        if(!hidden) {
-            BufferedImage image = textureAtlas.cut(rank.getId()*SPRITE_SCALE_X, suit.getId()*SPRITE_SCALE_Y, SPRITE_SCALE_X, SPRITE_SCALE_Y);
+        if (!hidden) {
+            BufferedImage image = textureAtlas.cut(rank.getId() * SPRITE_SCALE_X, suit.getId() * SPRITE_SCALE_Y, SPRITE_SCALE_X, SPRITE_SCALE_Y);
             SpriteSheet sheet = new SpriteSheet(image, 1, SPRITE_SCALE_X, SPRITE_SCALE_Y);
             this.sprite = new Sprite(sheet, 1);
         } else {
-            BufferedImage image = textureAtlas.cut(0, 4*SPRITE_SCALE_Y, SPRITE_SCALE_X, SPRITE_SCALE_Y);
+            BufferedImage image = textureAtlas.cut(0, 4 * SPRITE_SCALE_Y, SPRITE_SCALE_X, SPRITE_SCALE_Y);
             SpriteSheet sheet = new SpriteSheet(image, 1, SPRITE_SCALE_X, SPRITE_SCALE_Y);
             this.sprite = new Sprite(sheet, 1);
         }
@@ -61,5 +61,11 @@ public class Card extends Entity {
         sprite.render(g, x, y);
     }
 
+    public Rank getRank() {
+        return rank;
+    }
 
+    public Suit getSuit() {
+        return suit;
+    }
 }

@@ -1,4 +1,4 @@
-package com.artyom.game.api.cards;
+package com.artyom.game.texashodlem.cards;
 
 import java.util.Collections;
 import java.util.Stack;

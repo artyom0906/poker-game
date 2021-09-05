@@ -6,9 +6,9 @@ import com.artyom.game.api.ModuleConfiguration;
 import com.artyom.game.texashodlem.players.ComputerPlayer;
 import com.artyom.game.texashodlem.players.HumanPlayer;
 import com.artyom.game.texashodlem.players.PlayerPosition;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 
 import javax.swing.*;
-import java.util.Map;
 
 public class TexasHoldemModule implements GameModule {
     public TexasHoldemModule(){
@@ -22,10 +22,29 @@ public class TexasHoldemModule implements GameModule {
     @Override
     public GameComponents run() {
         TexasHoldem texasHoldem = new TexasHoldem();
-        texasHoldem.getPlayers().add(new HumanPlayer(texasHoldem, Map.of("chips", 1000L)));
-        texasHoldem.getPlayers().add(new ComputerPlayer(texasHoldem, Map.of("chips", 1000L), PlayerPosition.TOP));
-        texasHoldem.getPlayers().add(new ComputerPlayer(texasHoldem, Map.of("chips", 1000L), PlayerPosition.LEFT));
-        texasHoldem.getPlayers().add(new ComputerPlayer(texasHoldem, Map.of("chips", 1000L), PlayerPosition.RIGHT));
+        TexasHoldemPlayer front = new HumanPlayer(texasHoldem, 100L);
+        TexasHoldemPlayer right = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.RIGHT);
+        TexasHoldemPlayer top = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.TOP);
+        TexasHoldemPlayer left = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.LEFT);
+
+        front.setLeft(left);
+        //front.setRight(right);
+
+        left.setLeft(top);
+        left.setRight(front);
+
+        top.setLeft(right);
+        top.setRight(left);
+
+        //right.setLeft(front);
+        right.setRight(top);
+
+        texasHoldem.getPlayers().add(front);
+        texasHoldem.getPlayers().add(right);
+        texasHoldem.getPlayers().add(top);
+        texasHoldem.getPlayers().add(left);
+
+
         return new GameComponents(texasHoldem, texasHoldem);
     }
 

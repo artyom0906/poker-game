@@ -3,6 +3,8 @@ package com.artyom.game.texashodlem.state;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
 
+import java.util.Map;
+
 public class Show5thCard implements GameState {
     @Override
     public void next(GameManager game) {

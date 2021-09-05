@@ -3,8 +3,10 @@ package com.artyom.game.texashodlem.state;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
 import com.artyom.game.texashodlem.TexasHoldem;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 
 import java.util.List;
+import java.util.Map;
 
 public class DealCardsToPlayers implements GameState {
 
@@ -23,8 +25,9 @@ public class DealCardsToPlayers implements GameState {
     public void doAction(GameManager game) {
         if(game instanceof TexasHoldem texasHoldem)
             texasHoldem.getPlayers().forEach(player -> {
-            player.giveCards(List.of(texasHoldem.getDeck().takeTop(), texasHoldem.getDeck().takeTop()));
+                ((TexasHoldemPlayer)player).giveCards(List.of(texasHoldem.getDeck().takeTop(), texasHoldem.getDeck().takeTop()));
         });
     }
+
 
 }
