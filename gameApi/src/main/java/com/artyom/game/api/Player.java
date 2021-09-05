@@ -11,4 +11,8 @@ public abstract class Player extends Entity {
 		this.game = game;
 	}
 
+	public interface PlayerEventHandler{
+		void handle(PlayerEvent call);
+	}
+
 }

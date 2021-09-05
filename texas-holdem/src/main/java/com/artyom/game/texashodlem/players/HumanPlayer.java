@@ -21,8 +21,8 @@ public class HumanPlayer extends TexasHoldemPlayer {
     private Exception exception;
     private int timeout;
 
-    public HumanPlayer(GameManager game, Map<String, Object> params) {
-        super(game, params);
+    public HumanPlayer(GameManager game, long chips) {
+        super(game, chips);
     }
 
     @Override

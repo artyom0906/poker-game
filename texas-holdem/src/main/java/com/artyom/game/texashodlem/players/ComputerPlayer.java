@@ -12,12 +12,12 @@ import static com.artyom.game.texashodlem.TexasHoldem.HEIGHT;
 import static com.artyom.game.texashodlem.TexasHoldem.WIDTH;
 
 
-public class ComputerPlayer extends Player {
+public class ComputerPlayer extends TexasHoldemPlayer {
 
 
     private final PlayerPosition position;
-    public ComputerPlayer(GameManager game, Map<String, Object> params, PlayerPosition position) {
-        super(game, params);
+    public ComputerPlayer(GameManager game, long chips, PlayerPosition position) {
+        super(game, chips);
         this.position = position;
     }
 

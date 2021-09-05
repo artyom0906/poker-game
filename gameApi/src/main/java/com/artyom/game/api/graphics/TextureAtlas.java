@@ -10,7 +10,6 @@ public class TextureAtlas {
 
 	public TextureAtlas(String imageName) {
 		image = ResourceLoader.loadImage(imageName);
-		System.out.println("w: " + image.getWidth() + " h: " + image.getHeight());
 	}
 
 	public BufferedImage cut(int x, int y, int w, int h) {
