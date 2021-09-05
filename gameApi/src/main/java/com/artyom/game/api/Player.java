@@ -15,4 +15,7 @@ public abstract class Player extends Entity {
 		void handle(PlayerEvent call);
 	}
 
+	public GameManager getGame() {
+		return game;
+	}
 }

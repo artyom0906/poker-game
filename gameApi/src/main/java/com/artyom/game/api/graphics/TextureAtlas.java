@@ -1,6 +1,7 @@
 package com.artyom.game.api.graphics;
 
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 import com.artyom.game.engine.utils.ResourceLoader;
 
@@ -8,7 +9,7 @@ public class TextureAtlas {
 
 	BufferedImage	image;
 
-	public TextureAtlas(String imageName) {
+	public TextureAtlas(InputStream imageName) {
 		image = ResourceLoader.loadImage(imageName);
 	}
 

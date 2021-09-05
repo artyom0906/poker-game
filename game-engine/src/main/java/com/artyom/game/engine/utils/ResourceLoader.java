@@ -3,19 +3,18 @@ package com.artyom.game.engine.utils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
 public class ResourceLoader {
 
-	public static BufferedImage loadImage(String fileName) {
+	public static BufferedImage loadImage(InputStream fileName) {
 
 		BufferedImage image = null;
 
 		try {
-			File file = new File(fileName);
-			System.out.print(file.getAbsolutePath());
-			image = ImageIO.read(file);
+			image = ImageIO.read(fileName);
 
 		} catch (IOException e) {
 			e.printStackTrace();

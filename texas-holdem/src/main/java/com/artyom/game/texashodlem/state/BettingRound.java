@@ -8,7 +8,6 @@ import com.artyom.game.texashodlem.exceptions.NotEnoughChipsException;
 import com.artyom.game.texashodlem.players.TexasHoldemEvent;
 import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 
-import java.util.Queue;
 
 
 public class BettingRound implements GameState {

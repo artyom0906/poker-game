@@ -57,7 +57,7 @@ public enum Combo {
 
             int consecutive = 0;
             Rank[] values = Rank.values();
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; i < ranks.size(); i++) {
                 if (values[i] == ranks.get(i)) {
                     consecutive++;
                 } else if(consecutive == 5) {

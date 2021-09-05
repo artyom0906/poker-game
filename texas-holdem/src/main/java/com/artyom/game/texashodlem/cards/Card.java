@@ -8,6 +8,7 @@ import com.artyom.game.api.graphics.TextureAtlas;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Card extends Entity {
     private final Rank rank;
@@ -16,7 +17,7 @@ public class Card extends Entity {
 
     public static final int	SPRITE_SCALE_X		= 81;
     public static final int	SPRITE_SCALE_Y		= 117;
-    private static final TextureAtlas textureAtlas = new TextureAtlas(Card.class.getClassLoader().getResource("img.png").getFile());
+    private static final TextureAtlas textureAtlas = new TextureAtlas(Card.class.getClassLoader().getResourceAsStream("img.png"));
     private boolean hidden = false;
 
     public Card(Rank rank, Suit suit, boolean hidden) {
@@ -24,6 +25,7 @@ public class Card extends Entity {
         this.rank = rank;
         this.suit = suit;
         this.hidden = hidden;
+
         if (!hidden) {
             BufferedImage image = textureAtlas.cut(rank.getId() * SPRITE_SCALE_X, suit.getId() * SPRITE_SCALE_Y, SPRITE_SCALE_X, SPRITE_SCALE_Y);
             SpriteSheet sheet = new SpriteSheet(image, 1, SPRITE_SCALE_X, SPRITE_SCALE_Y);
