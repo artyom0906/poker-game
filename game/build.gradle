@@ -1,5 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+javafx {
+    version = "15.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml']
 }
 
 group 'com.artyom'
@@ -9,9 +16,26 @@ repositories {
     mavenCentral()
 }
 
+application{
+    mainModule = 'com.artyom.game'
+    mainClass = 'com.artyom.game.Main'
+}
+
 dependencies {
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-core', version: '12.2.0'
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-javafx', version: '12.2.0'
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-fontawesome-pack', version: '12.2.0'
+
+    implementation('com.dlsc.formsfx:formsfx-core:11.3.2') {
+        exclude(group: 'org.openjfx')
+    }
+    implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    //module('game-engine')
+    implementation project(':gameApi')
+    implementation project(':game-engine')
+    implementation project(':texas-holdem')
 }
 
 test {
