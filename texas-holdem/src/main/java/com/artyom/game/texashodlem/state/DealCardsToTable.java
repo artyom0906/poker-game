@@ -32,6 +32,8 @@ public class DealCardsToTable implements GameState {
                 table.add(card);
             }
             texasHoldem.setTable(table);
+            texasHoldem.nextState();
+            texasHoldem.doAction();
         }
     }
 

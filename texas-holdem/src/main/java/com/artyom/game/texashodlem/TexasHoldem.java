@@ -34,7 +34,7 @@ public class TexasHoldem extends GameManager implements GameScreen {
         deck.shuffle();
     }
 
-    public GameState getState(){return state;}
+    public GameState getState(){ return state;}
 
     public void previousState() {
         state.prev(this);
@@ -102,6 +102,8 @@ public class TexasHoldem extends GameManager implements GameScreen {
             graphics.setTransform(new AffineTransform());
         }
         this.getPlayers().forEach(player -> player.render(graphics));
+        graphics.drawString("Bank: " + this.getBank(), WIDTH / 2 + 40, HEIGHT / 4 + 15);
+        graphics.drawString("Current bet: " + this.getCurrentBet(), WIDTH / 3, HEIGHT / 4 + 15);
     }
 
     public long getCurrentBet() {
