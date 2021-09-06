@@ -3,12 +3,10 @@ package com.artyom.game.texashodlem.state;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
 
-import java.util.Map;
-
 public class EndRound implements GameState {
     @Override
     public void next(GameManager game) {
-
+        game.setState(new DealCardsToPlayers());
     }
 
     @Override
@@ -18,7 +16,26 @@ public class EndRound implements GameState {
 
     @Override
     public void doAction(GameManager game) {
+        //TODO: count winner
 
+
+        //game.nextState();
+        //game.doAction();
     }
 
+    //@Override
+    //public void handleEvent(PlayerEvent event, GameManager game) {
+    //    if (game instanceof TexasHoldem texasHoldem
+    //            && event instanceof TexasHoldemEvent texasHoldemEvent) {
+    //        switch (texasHoldemEvent.getEvent()) {
+    //            case "newround" -> {
+    //                texasHoldem.nextState();
+    //                texasHoldem.doAction();
+    //            }
+    //            case "disconnect" -> {
+    //                System.exit(0);
+    //            }
+    //        }
+    //    }
+    //}
 }

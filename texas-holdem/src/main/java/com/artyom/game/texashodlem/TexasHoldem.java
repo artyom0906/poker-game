@@ -80,9 +80,6 @@ public class TexasHoldem extends GameManager implements GameScreen {
                 state.handleEvent(events, this);
             });
         });
-        this.doAction();
-        this.nextState();
-        this.doAction();
     }
 
     @Override

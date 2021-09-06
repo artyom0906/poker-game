@@ -42,6 +42,7 @@ public class Showtime implements GameState {
             System.out.print(player.getMaxRank() + " ");
             System.out.println(player.getCombos());
         });
+        game.nextState();
     }
 
 

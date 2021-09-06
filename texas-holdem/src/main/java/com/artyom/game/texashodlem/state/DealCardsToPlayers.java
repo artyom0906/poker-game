@@ -27,6 +27,7 @@ public class DealCardsToPlayers implements GameState {
             texasHoldem.getPlayers().forEach(player -> {
                 ((TexasHoldemPlayer)player).giveCards(List.of(texasHoldem.getDeck().takeTop(), texasHoldem.getDeck().takeTop()));
         });
+        game.nextState();
     }
 
 

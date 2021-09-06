@@ -7,7 +7,11 @@ import com.artyom.game.texashodlem.cards.Card;
 import com.artyom.game.texashodlem.cards.Combo;
 import com.artyom.game.texashodlem.exceptions.NotEnoughChipsException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class TexasHoldemPlayer extends Player {
     private long currentBet;
@@ -91,9 +95,12 @@ public abstract class TexasHoldemPlayer extends Player {
     }
 
     public void countCombos(){
-        List<Card> cards = new ArrayList<>();
-        Collections.copy(this.cards, cards);
+        List<Card> cards = new ArrayList<>(this.cards);
         cards.addAll(((TexasHoldem)this.getGame()).getTable());
+
+        //Collections.copy(this.cards, cards);
+        //cards.addAll(((TexasHoldem)this.getGame()).getTable());
+
         for (Combo combo : Combo.values()) {
             if(combo.countCombination(cards)){
                 this.combos.add(combo);
