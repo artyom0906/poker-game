@@ -28,15 +28,18 @@ public class Showtime implements GameState {
         }).peek(player -> {
             player.countCombos();
             player.setMaxRank(player.getCards().stream().max(Comparator.comparing(Card::getRank)).orElseThrow().getRank().getId());
-        }).sorted((p1, p2) -> {
+        }).sorted(Comparator.nullsLast((player1, player2) -> {
+            TexasHoldemPlayer p1 = (TexasHoldemPlayer)player1;
+            TexasHoldemPlayer p2 = (TexasHoldemPlayer)player2;
             Integer p1_combos = p1.getCombos().stream().map(Combo::getId).reduce(0, Integer::sum);
             Integer p2_combos = p2.getCombos().stream().map(Combo::getId).reduce(0, Integer::sum);
             int comp = p1_combos.compareTo(p2_combos);
             if(comp!=0) return comp;
             return Integer.compare(p1.getMaxRank(), p2.getMaxRank());
-        }).collect(Collectors.toList());
+        }).reversed()).collect(Collectors.toList());
         players.forEach(player ->{
-            System.out.print(player);
+            System.out.print(player + " ");
+            System.out.print(player.getMaxRank() + " ");
             System.out.println(player.getCombos());
         });
     }

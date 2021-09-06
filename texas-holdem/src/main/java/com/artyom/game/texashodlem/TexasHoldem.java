@@ -12,18 +12,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TexasHoldem extends GameManager implements GameScreen {
 
     public static final int		WIDTH			= 800;
     public static final int		HEIGHT			= 600;
 
-    private GameState state = new DealCardsToPlayers();
+    private volatile GameState state = new DealCardsToPlayers();
     private final Deck deck;
 
     private final int DEFAULT_CHIPS = 1000;
     private long bank;
     private long currentBet;
+    private AtomicBoolean nextState = new AtomicBoolean(true);
 
     private List<Card> table;
 
@@ -44,10 +46,11 @@ public class TexasHoldem extends GameManager implements GameScreen {
         state.next(this);
     }
 
-    public void doAction() {state.doAction(this);}
+    public synchronized void doAction() {state.doAction(this);}
 
     public void setState(GameState state) {
         this.state = state;
+        nextState.set(true);
     }
 
     public Deck getDeck() {
@@ -84,8 +87,11 @@ public class TexasHoldem extends GameManager implements GameScreen {
 
     @Override
     public void update(Input input) {
+        if(nextState.get()){
+                nextState.set(false);
+                this.doAction();
+        }
         this.getPlayers().forEach(player -> player.update(input));
-
     }
 
     @Override

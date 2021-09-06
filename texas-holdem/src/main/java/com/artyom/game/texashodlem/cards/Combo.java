@@ -1,8 +1,6 @@
 package com.artyom.game.texashodlem.cards;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,10 +51,12 @@ public enum Combo {
     STRAIGHT(       4) {
         @Override
         public boolean countCombination(List<Card> cards) {
-            List<Rank> ranks = cards.stream().map(Card::getRank).sorted().collect(Collectors.toList());
+            List<Rank> ranks = new ArrayList<>(cards.stream().map(Card::getRank).collect(Collectors.toSet()));
+            Collections.sort(ranks);
 
             int consecutive = 0;
             Rank[] values = Rank.values();
+            System.out.println(ranks + " " + Arrays.asList(values));
             for (int i = 0; i < ranks.size(); i++) {
                 if (values[i] == ranks.get(i)) {
                     consecutive++;
@@ -104,8 +104,14 @@ public enum Combo {
 
     private static <T extends Enum<T>> Stream<Map.Entry<T, Long>> genericCounter(Class<T> enumType, List<Card> cards) {
         Map<T, Long> count= new HashMap<>();
-        for(T rank : enumType.getEnumConstants()) {
-            count.put(rank, cards.stream().filter(card -> card.getRank().equals(rank)).count());
+        for(T t : enumType.getEnumConstants()) {
+            count.put(t, cards.stream().filter(card -> {
+                try {
+                    return card.getGetParam(enumType).equals(t);
+                } catch (Exception ignored) {
+                    return false;
+                }
+            }).count());
         }
         return count.entrySet().stream();
     }

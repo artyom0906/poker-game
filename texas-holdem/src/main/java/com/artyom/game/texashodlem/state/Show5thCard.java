@@ -21,6 +21,5 @@ public class Show5thCard implements GameState {
     public void doAction(GameManager game) {
         ((TexasHoldem)game).showCards(5);
         game.nextState();
-        game.doAction();
     }
 }

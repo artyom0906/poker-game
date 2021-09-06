@@ -83,7 +83,6 @@ public class BettingRound implements GameState {
                 player.getLeft().activate();
             } catch (NullPointerException ignored) {
                 texasHoldem.nextState();
-                texasHoldem.doAction();
             }
         }
     }

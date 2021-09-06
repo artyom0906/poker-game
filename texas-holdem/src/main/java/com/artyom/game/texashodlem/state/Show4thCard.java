@@ -21,6 +21,5 @@ public class Show4thCard implements GameState {
     public void doAction(GameManager game) {
         ((TexasHoldem)game).showCards(4);
         game.nextState();
-        game.doAction();
     }
 }

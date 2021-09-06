@@ -9,6 +9,7 @@ import com.artyom.game.api.graphics.TextureAtlas;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.lang.reflect.Field;
 
 public class Card extends Entity {
     private final Rank rank;
@@ -69,5 +70,14 @@ public class Card extends Entity {
 
     public Suit getSuit() {
         return suit;
+    }
+
+    public <T extends Enum<T>> T getGetParam(Class<T> enumType) throws IllegalAccessException {
+        for (Field field : this.getClass().getDeclaredFields()) {
+            if(field.getType().equals(enumType)){
+                return (T) field.get(this);
+            }
+        }
+        return null;
     }
 }

@@ -99,6 +99,7 @@ public abstract class TexasHoldemPlayer extends Player {
                 this.combos.add(combo);
             }
         }
+
     }
 
     public int getMaxRank() {
