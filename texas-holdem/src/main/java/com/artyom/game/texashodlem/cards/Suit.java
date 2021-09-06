@@ -12,4 +12,11 @@ public enum Suit {
     public int getId(){
         return id;
     }
+    public static Suit toEnum(Integer id) {
+        for (Suit value : Suit.values()) {
+            if (id.equals(value.getId()))
+                return value;
+        }
+        return null;
+    }
 }

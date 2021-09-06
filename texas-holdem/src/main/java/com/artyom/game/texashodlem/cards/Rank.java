@@ -23,4 +23,11 @@ public enum Rank {
         return id;
     }
 
+    public static Rank toEnum(Integer id) {
+        for (Rank value : Rank.values()) {
+            if (id.equals(value.getId()))
+                return value;
+        }
+        return null;
+    }
 }

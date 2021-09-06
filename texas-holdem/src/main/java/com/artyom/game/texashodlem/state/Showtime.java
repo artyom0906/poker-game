@@ -40,6 +40,4 @@ public class Showtime implements GameState {
         });
         game.nextState();
     }
-
-
 }

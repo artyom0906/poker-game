@@ -152,4 +152,27 @@ public enum Combo {
         }
         return count.entrySet().stream();
     }
+
+    /**
+     * @param cards List of cards
+     * @param requiredAmount recommended less than 4 because its only 4 same card
+     * @return amount of cards of the highest rank in List or -1 if amount of cards of the highest rank is lower than requiredAmount
+     */
+    private static int highestRankCount(List<Card> cards, int requiredAmount) {
+        Stream<Map.Entry<Rank, Long>> combo = genericCounter(Rank.class, cards).filter(e -> e.getValue() >= requiredAmount);
+        return combo.max(Comparator.comparing(e->e.getKey().getId())).map(e->e.getKey().getId()).orElse(-1);
+    }
+
+    private static Card highestFlushCard(List<Card> cards) {
+        var suit = genericCounter(Suit.class, cards)
+                .filter(e->e.getValue()>=5).map(Map.Entry::getKey).findAny();
+        if(suit.isEmpty()) return null;
+        Suit flushSuit = suit.get();
+        Optional<Card> highestFlushCard = cards.stream()
+                .filter(e->e.getSuit().equals(flushSuit))
+                .max(Comparator.comparing(e -> e.getRank().getId()));
+        if(highestFlushCard.isEmpty())return null;
+
+        return highestFlushCard.get();
+    }
 }
