@@ -7,9 +7,7 @@ import com.artyom.game.texashodlem.cards.Card;
 import com.artyom.game.texashodlem.cards.Combo;
 import com.artyom.game.texashodlem.exceptions.NotEnoughChipsException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +20,7 @@ public abstract class TexasHoldemPlayer extends Player {
     TexasHoldemPlayer left;
     TexasHoldemPlayer right;
 
-    private List<Combo> combos = new ArrayList<>();
+    private Map<Combo, Integer> combos = new HashMap<>();
     private int maxRank;
 
     public TexasHoldemPlayer(GameManager game, long chips) {
@@ -98,12 +96,12 @@ public abstract class TexasHoldemPlayer extends Player {
         List<Card> cards = new ArrayList<>(this.cards);
         cards.addAll(((TexasHoldem)this.getGame()).getTable());
 
-        //Collections.copy(this.cards, cards);
-        //cards.addAll(((TexasHoldem)this.getGame()).getTable());
-
         for (Combo combo : Combo.values()) {
-            if(combo.countCombination(cards)){
-                this.combos.add(combo);
+            if(!combo.equals(Combo.HIGH_CARD)){
+                this.combos.put(combo, combo.countCombination(cards));
+            }else {
+                this.setMaxRank(combo.countCombination(this.cards));
+                this.combos.put(combo, this.maxRank);
             }
         }
 
@@ -117,7 +115,7 @@ public abstract class TexasHoldemPlayer extends Player {
         this.maxRank = maxRank;
     }
 
-    public List<Combo> getCombos() {
+    public Map<Combo, Integer> getCombos() {
         return combos;
     }
 }
