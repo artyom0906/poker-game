@@ -11,15 +11,6 @@ public enum Combo {
     STRAIGHT_FLUSH( 8){
         @Override
         public int countCombination(List<Card> cards) {
-            /*
-             * 1 - 1
-             * 1 - 2
-             * 1 - 3
-             * 1 - 4
-             * 1 - 5
-             * 1 - 9//
-             * 2 - 6
-             */
             List<Card> sortedCards = new ArrayList<>(cards);
             //Remove non-flush suited cards
             var flushSuit = genericCounter(Suit.class, cards)
@@ -35,12 +26,8 @@ public enum Combo {
                                 return null;
                         }).filter(Objects::nonNull).collect(Collectors.toList());
             else return -1;
-            //sortedCards.forEach(card -> {
-            //    System.out.println("Rank: " + card.getRank() + " Suit: " + card.getSuit());
-            //});
             int flushTop = Combo.FLUSH.countCombination(sortedCards);
             int straightTop = Combo.STRAIGHT.countCombination(sortedCards);
-            //System.out.println("flushTop: " + flushTop + " straightTop: " + straightTop);
 
             if (flushTop >= straightTop)
                 return straightTop;
@@ -137,8 +124,19 @@ public enum Combo {
     public int getId(){
         return id;
     }
+
+    /**
+     * @param cards List of cards
+     * @return id of the highest rank in the combo
+     */
     public abstract int countCombination(List<Card> cards);
 
+    /**
+     * @param enumType Sets T
+     * @param cards List of cards
+     * @param <T> Passed enum type
+     * @return Stream of Map entries containing count of every unique T
+     */
     private static <T extends Enum<T>> Stream<Map.Entry<T, Long>> genericCounter(Class<T> enumType, List<Card> cards) {
         Map<T, Long> count= new HashMap<>();
         for(T t : enumType.getEnumConstants()) {
@@ -159,10 +157,17 @@ public enum Combo {
      * @return amount of cards of the highest rank in List or -1 if amount of cards of the highest rank is lower than requiredAmount
      */
     private static int highestRankCount(List<Card> cards, int requiredAmount) {
-        Stream<Map.Entry<Rank, Long>> combo = genericCounter(Rank.class, cards).filter(e -> e.getValue() >= requiredAmount);
-        return combo.max(Comparator.comparing(e->e.getKey().getId())).map(e->e.getKey().getId()).orElse(-1);
+        return genericCounter(Rank.class, cards)
+                .filter(e -> e.getValue() >= requiredAmount)
+                .max(Comparator.comparing(e->e.getKey().getId()))
+                .map(e->e.getKey().getId())
+                .orElse(-1);
     }
 
+    /**
+     * @param cards List of cards
+     * @return Card that has the highest rank in the flush
+     */
     private static Card highestFlushCard(List<Card> cards) {
         var suit = genericCounter(Suit.class, cards)
                 .filter(e->e.getValue()>=5).map(Map.Entry::getKey).findAny();
