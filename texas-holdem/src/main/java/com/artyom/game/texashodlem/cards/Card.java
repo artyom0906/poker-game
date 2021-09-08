@@ -21,6 +21,11 @@ public class Card extends Entity {
     private static final TextureAtlas textureAtlas = new TextureAtlas(Card.class.getClassLoader().getResourceAsStream("img.png"));
     private boolean hidden = false;
 
+    /**
+     * @param rank Rank of card
+     * @param suit Suit of card
+     * @param hidden if hidden - set sprite to the back of the card, otherwise set sprite to the card itself
+     */
     public Card(Rank rank, Suit suit, boolean hidden) {
         super(0, 0);
         this.rank = rank;
@@ -72,6 +77,12 @@ public class Card extends Entity {
         return suit;
     }
 
+    /**
+     * @param enumType Type to get
+     * @param <T> enumType
+     * @return value of field of type enumType
+     * @throws IllegalAccessException if field is a private field of a different class. Supposed to never happen
+     */
     public <T extends Enum<T>> T getGetParam(Class<T> enumType) throws IllegalAccessException {
         for (Field field : this.getClass().getDeclaredFields()) {
             if(field.getType().equals(enumType)){
