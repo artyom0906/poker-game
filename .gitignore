@@ -1,3 +1,6 @@
 # Project exclude paths
 /out/
 /game/build/
+/gameApi/build
+/game-engine/build
+/texas-holdem/build
