@@ -8,8 +8,6 @@ import com.artyom.game.texashodlem.state.DealCardsToPlayers;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;

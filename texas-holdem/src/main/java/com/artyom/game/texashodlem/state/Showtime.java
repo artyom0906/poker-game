@@ -24,20 +24,30 @@ public class Showtime implements GameState {
 
     @Override
     public void doAction(GameManager game) {
-        List<TexasHoldemPlayer> players = game.getPlayers().stream().map(player -> (TexasHoldemPlayer)player).peek(player -> {
-            player.getCards().forEach(Card::show);
-        }).peek(TexasHoldemPlayer::countCombos).sorted(Comparator.nullsLast((player1, player2) -> {
-            TexasHoldemPlayer p1 = (TexasHoldemPlayer)player1;
-            TexasHoldemPlayer p2 = (TexasHoldemPlayer)player2;
-            Integer p1_combos = p1.getCombos().entrySet().stream().filter(e->e.getValue()!=-1).max(Map.Entry.comparingByKey()).get().getValue();
-            Integer p2_combos = p2.getCombos().entrySet().stream().filter(e->e.getValue()!=-1).max(Map.Entry.comparingByKey()).get().getValue();
-            return p1_combos.compareTo(p2_combos);
-        }).reversed()).collect(Collectors.toList());
-        players.forEach(player ->{
-            System.out.print(player + " ");
-            System.out.print(Rank.toEnum(player.getMaxRank()) + " ");
-            System.out.println(player.getCombos().entrySet().stream().filter(e->e.getValue()!=-1).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
-        });
+        game.getPlayers().stream()
+                .map(player -> (TexasHoldemPlayer) player)
+                .peek(player -> player.getCards().forEach(Card::show))
+                .peek(TexasHoldemPlayer::countCombos)
+                .sorted((player1, player2) -> {
+                    Map.Entry<Combo, Integer> p1_combos = player1.getCombos().entrySet().stream()
+                            .filter(e -> e.getValue() != -1)
+                            .min(Map.Entry.comparingByKey()).orElseThrow();
+                    Map.Entry<Combo, Integer> p2_combos = player2.getCombos().entrySet().stream()
+                            .filter(e -> e.getValue() != -1)
+                            .min(Map.Entry.comparingByKey()).orElseThrow();
+
+                    int t = p1_combos.getKey().compareTo(p2_combos.getKey());
+                    System.out.println(p1_combos + " " + p2_combos + " => " + t + " " + p2_combos.getValue().compareTo(p1_combos.getValue()));
+                    if (t == 0) {
+                        return p2_combos.getValue().compareTo(p1_combos.getValue());
+                    }
+                    return t;
+                }).collect(Collectors.toList()).get(0);
+                /*.forEach(player -> {
+                    System.out.print(player + " ");
+                    System.out.print(Rank.toEnum(player.getMaxRank()) + " ");
+                    System.out.println(player.getCombos().entrySet().stream().filter(e -> e.getValue() != -1).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+                });*/
         game.nextState();
     }
 }

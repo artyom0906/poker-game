@@ -16,11 +16,9 @@ public class EndRound implements GameState {
 
     @Override
     public void doAction(GameManager game) {
-        //TODO: count winner
-
-
+        //TODO: give bank to winner
+        //TODO: add "next round" button
         //game.nextState();
-        //game.doAction();
     }
 
     //@Override
