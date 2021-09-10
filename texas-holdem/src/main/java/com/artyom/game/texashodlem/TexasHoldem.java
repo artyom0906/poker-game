@@ -3,6 +3,7 @@ package com.artyom.game.texashodlem;
 import com.artyom.game.api.*;
 import com.artyom.game.texashodlem.cards.Card;
 import com.artyom.game.texashodlem.cards.Deck;
+import com.artyom.game.texashodlem.players.HumanPlayer;
 import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 import com.artyom.game.texashodlem.state.DealCardsToPlayers;
 
@@ -24,6 +25,8 @@ public class TexasHoldem extends GameManager implements GameScreen {
     private long bank;
     private long currentBet;
     private AtomicBoolean nextState = new AtomicBoolean(true);
+
+    private TexasHoldemPlayer winner;
 
     private List<Card> table;
 
@@ -117,5 +120,13 @@ public class TexasHoldem extends GameManager implements GameScreen {
 
     public List<Card> getTable() {
         return table;
+    }
+
+    public TexasHoldemPlayer getWinner() {
+        return winner;
+    }
+
+    public void setWinner(TexasHoldemPlayer winner) {
+        this.winner = winner;
     }
 }
