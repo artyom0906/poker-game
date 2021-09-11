@@ -44,6 +44,11 @@ public class TexasHoldemModule implements GameModule {
         texasHoldem.getPlayers().add(north);
         texasHoldem.getPlayers().add(west);
 
+        texasHoldem.getPlayers().forEach(player -> {
+            if (player instanceof TexasHoldemPlayer texasHoldemPlayer)
+                texasHoldem.getCurrentPlayers().add(texasHoldemPlayer);
+        });
+
         return new GameComponents(texasHoldem, texasHoldem);
     }
 

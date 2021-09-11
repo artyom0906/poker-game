@@ -29,12 +29,14 @@ public class TexasHoldem extends GameManager implements GameScreen {
     private TexasHoldemPlayer winner;
 
     private List<Card> table;
+    private List<TexasHoldemPlayer> currentPlayers;
 
     public TexasHoldem(){
         super(new StartRound(), new ArrayList<>());
         this.table = new ArrayList<>();
         deck = new Deck();
         deck.shuffle();
+        this.currentPlayers = new ArrayList<>();
     }
 
     public GameState getState(){ return state;}
@@ -128,5 +130,13 @@ public class TexasHoldem extends GameManager implements GameScreen {
 
     public void setWinner(TexasHoldemPlayer winner) {
         this.winner = winner;
+    }
+
+    public List<TexasHoldemPlayer> getCurrentPlayers() {
+        return currentPlayers;
+    }
+
+    public void setCurrentPlayers(List<TexasHoldemPlayer> currentPlayers) {
+        this.currentPlayers = currentPlayers;
     }
 }

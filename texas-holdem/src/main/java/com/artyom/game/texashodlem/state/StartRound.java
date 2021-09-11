@@ -3,7 +3,7 @@ package com.artyom.game.texashodlem.state;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
 import com.artyom.game.texashodlem.TexasHoldem;
-import com.artyom.game.texashodlem.players.HumanPlayer;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 
 import java.util.List;
 
@@ -24,6 +24,10 @@ public class StartRound implements GameState {
         if (game instanceof TexasHoldem texasHoldem) {
             texasHoldem.setTable(List.of());
             texasHoldem.getDeck().shuffle();
+            texasHoldem.getPlayers().forEach(player -> {
+                if (player instanceof TexasHoldemPlayer texasHoldemPlayer)
+                    texasHoldem.getCurrentPlayers().add(texasHoldemPlayer);
+            });
         }
         game.nextState();
     }

@@ -55,7 +55,7 @@ public class BettingRound implements GameState {
                     ((TexasHoldemPlayer) player).setCurrentBet(initialBet);
                 });
             }
-            bettingQueue = new LinkedList<>(texasHoldem.getPlayers());
+            bettingQueue = new LinkedList<>(texasHoldem.getCurrentPlayers());
             if (bettingQueue.poll() instanceof TexasHoldemPlayer texasHoldemPlayer)
                 texasHoldemPlayer.activate();
             //((TexasHoldemPlayer)texasHoldem.getPlayers().get(0)).activate();
@@ -82,6 +82,8 @@ public class BettingRound implements GameState {
                 case "fold"->{
                     player.getLeft().setRight(player.getRight());
                     player.getRight().setLeft(player.getLeft());
+                    texasHoldem.getCurrentPlayers().remove(player);
+                    texasHoldem.setCurrentPlayers(texasHoldem.getCurrentPlayers());
                 }
             }
             player.deactivate();
