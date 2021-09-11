@@ -3,9 +3,9 @@ package com.artyom.game.texashodlem;
 import com.artyom.game.api.*;
 import com.artyom.game.texashodlem.cards.Card;
 import com.artyom.game.texashodlem.cards.Deck;
-import com.artyom.game.texashodlem.players.HumanPlayer;
 import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 import com.artyom.game.texashodlem.state.DealCardsToPlayers;
+import com.artyom.game.texashodlem.state.StartRound;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -31,7 +31,7 @@ public class TexasHoldem extends GameManager implements GameScreen {
     private List<Card> table;
 
     public TexasHoldem(){
-        super(new DealCardsToPlayers(), new ArrayList<>());
+        super(new StartRound(), new ArrayList<>());
         this.table = new ArrayList<>();
         deck = new Deck();
         deck.shuffle();
@@ -107,7 +107,7 @@ public class TexasHoldem extends GameManager implements GameScreen {
         }
         this.getPlayers().forEach(player -> player.render(graphics));
         graphics.drawString("Bank: " + this.getBank(), WIDTH / 2 + 40, HEIGHT / 4 + 15);
-        graphics.drawString("Current bet: " + this.getCurrentBet(), WIDTH / 3, HEIGHT / 4 + 15);
+        graphics.drawString("Current bet: " + this.getCurrentBet(), WIDTH / 3 - 15, HEIGHT / 4 + 15);
     }
 
     public long getCurrentBet() {

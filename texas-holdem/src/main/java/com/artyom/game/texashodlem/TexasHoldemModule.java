@@ -22,28 +22,27 @@ public class TexasHoldemModule implements GameModule {
     @Override
     public GameComponents run() {
         TexasHoldem texasHoldem = new TexasHoldem();
-        TexasHoldemPlayer front = new HumanPlayer(texasHoldem, 100L);
-        TexasHoldemPlayer right = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.RIGHT);
-        TexasHoldemPlayer top = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.TOP);
-        TexasHoldemPlayer left = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.LEFT);
+        TexasHoldemPlayer south = new HumanPlayer(texasHoldem, 100L);
+        TexasHoldemPlayer east = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.RIGHT);
+        TexasHoldemPlayer north = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.TOP);
+        TexasHoldemPlayer west = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.LEFT);
 
-        front.setLeft(left);
-        //front.setRight(right);
+        south.setLeft(west);
+        south.setRight(east);
 
-        left.setLeft(top);
-        left.setRight(front);
+        west.setLeft(north);
+        west.setRight(south);
 
-        top.setLeft(right);
-        top.setRight(left);
+        north.setLeft(east);
+        north.setRight(west);
 
-        //right.setLeft(front);
-        right.setRight(top);
+        east.setLeft(south);
+        east.setRight(north);
 
-        texasHoldem.getPlayers().add(front);
-        texasHoldem.getPlayers().add(right);
-        texasHoldem.getPlayers().add(top);
-        texasHoldem.getPlayers().add(left);
-
+        texasHoldem.getPlayers().add(south);
+        texasHoldem.getPlayers().add(east);
+        texasHoldem.getPlayers().add(north);
+        texasHoldem.getPlayers().add(west);
 
         return new GameComponents(texasHoldem, texasHoldem);
     }

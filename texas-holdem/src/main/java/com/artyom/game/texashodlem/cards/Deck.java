@@ -9,10 +9,10 @@ public class Deck {
     /**
      * Creates a new shuffled deck
      */
-    public void shuffle(){
+    public void shuffle() {
         cards.clear();
-        for(Rank rank: Rank.values()){
-            for(Suit suit: Suit.values()){
+        for (Rank rank : Rank.values()) {
+            for (Suit suit : Suit.values()) {
                 cards.add(new Card(rank, suit));
             }
         }

@@ -2,16 +2,19 @@ package com.artyom.game.texashodlem.state;
 
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.GameState;
+import com.artyom.game.api.Player;
 import com.artyom.game.api.PlayerEvent;
 import com.artyom.game.texashodlem.TexasHoldem;
 import com.artyom.game.texashodlem.exceptions.NotEnoughChipsException;
 import com.artyom.game.texashodlem.players.TexasHoldemEvent;
 import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 
-
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BettingRound implements GameState {
     private final GameState prevState;
+    private Queue<Player> bettingQueue;
 
     public BettingRound(GameState gameState) {
         this.prevState = gameState;
@@ -52,7 +55,10 @@ public class BettingRound implements GameState {
                     ((TexasHoldemPlayer) player).setCurrentBet(initialBet);
                 });
             }
-            ((TexasHoldemPlayer)texasHoldem.getPlayers().get(0)).activate();
+            bettingQueue = new LinkedList<>(texasHoldem.getPlayers());
+            if (bettingQueue.poll() instanceof TexasHoldemPlayer texasHoldemPlayer)
+                texasHoldemPlayer.activate();
+            //((TexasHoldemPlayer)texasHoldem.getPlayers().get(0)).activate();
         }
     }
 
@@ -79,11 +85,11 @@ public class BettingRound implements GameState {
                 }
             }
             player.deactivate();
-            try {
-                player.getLeft().activate();
-            } catch (NullPointerException ignored) {
+
+            if (bettingQueue.poll() instanceof TexasHoldemPlayer texasHoldemPlayer)
+                texasHoldemPlayer.activate();
+            else
                 texasHoldem.nextState();
-            }
         }
     }
 
@@ -93,6 +99,7 @@ public class BettingRound implements GameState {
                 long call = texasHoldem.getCurrentBet() - player.getCurrentBet();
                 player.takeChips(call);
                 texasHoldem.setBank(texasHoldem.getBank() + call);
+                player.setCurrentBet(texasHoldem.getCurrentBet());
             } catch (NotEnoughChipsException ignored) {}
         }
     }

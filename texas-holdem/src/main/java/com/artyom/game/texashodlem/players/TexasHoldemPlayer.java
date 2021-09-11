@@ -50,7 +50,7 @@ public abstract class TexasHoldemPlayer extends Player {
     }
 
     public void takeChips(long chips) throws NotEnoughChipsException {
-        if (getChips() - chips == 0)
+        if (getChips() - chips < 0)
             throw new NotEnoughChipsException("not enough chips");
         setChips(getChips() - chips);
     }

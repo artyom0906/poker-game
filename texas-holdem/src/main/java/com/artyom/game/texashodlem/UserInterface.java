@@ -4,6 +4,9 @@ package com.artyom.game.texashodlem;
 
 import com.artyom.game.api.*;
 import com.artyom.game.api.Button;
+import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
+import com.artyom.game.texashodlem.state.EndRound;
+
 import java.awt.*;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
@@ -18,17 +21,27 @@ public class UserInterface extends Entity implements StateDependent {
     private final Button raise;
     private final Button call;
     private final Button fold;
+    private final Button newRound;
+    private final Button disconnect;
+    private TexasHoldem texasHoldem;
     Function<String, String>  handler;
-    public UserInterface(float x, float y) {
+    public UserInterface(TexasHoldem texasHoldem, float x, float y) {
         super(x, y);
-        raise = new Button(30, 560, 80, 30, "raise", true, ()->{
+        this.texasHoldem = texasHoldem;
+        raise = new Button(30, 560, 80, 30, "Raise", true, ()->{
             handler.apply("raised");
         });
-        call = new Button(30, 515, 80, 30, "call", true, ()->{
+        call = new Button(30, 515, 80, 30, "Call", true, ()->{
             handler.apply("call");
         });
-        fold = new Button(690, 560, 80, 30, "fold", true, ()->{
+        fold = new Button(690, 560, 80, 30, "Fold", true, ()->{
             handler.apply("fold");
+        });
+        newRound = new Button(540, 560, 130, 30, "New Round", true, ()->{
+            handler.apply("newround");
+        });
+        disconnect = new Button(540, 515, 130, 30, "Disconnect", true, ()->{
+            handler.apply("disconnect");
         });
     }
 
@@ -41,6 +54,8 @@ public class UserInterface extends Entity implements StateDependent {
         raise.update(input);
         call.update(input);
         fold.update(input);
+        newRound.update(input);
+        disconnect.update(input);
     }
 
     @Override
@@ -48,8 +63,11 @@ public class UserInterface extends Entity implements StateDependent {
         raise.render(g);
         call.render(g);
         fold.render(g);
+        if (texasHoldem.getState() instanceof EndRound) {
+            newRound.render(g);
+            disconnect.render(g);
+        }
     }
-
 
     @Override
     public void nextState(GameState state) {
