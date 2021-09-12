@@ -1,4 +1,4 @@
-package com.artyom.game.draughts;
+package com.artyom.game.draughts.components;
 
 import com.artyom.game.api.ModuleConfiguration;
 

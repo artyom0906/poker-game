@@ -1,4 +1,4 @@
-package com.artyom.game.draughts;
+package com.artyom.game.draughts.components;
 
 import com.artyom.game.api.GameComponents;
 import com.artyom.game.api.GameModule;
@@ -20,12 +20,12 @@ public class RussianDraughtsModule implements GameModule {
 
     @Override
     public GameComponents run() {
-        RussianDraughts russianDraughts = new RussianDraughts();
+        RussianDraughtsManager russianDraughtsManager = new RussianDraughtsManager();
 
-        DraughtsPlayer human = new HumanPlayer(russianDraughts);
-        DraughtsPlayer computer = new ComputerPlayer(russianDraughts);
+        DraughtsPlayer human = new HumanPlayer(russianDraughtsManager);
+        DraughtsPlayer computer = new ComputerPlayer(russianDraughtsManager);
 
-        return new GameComponents(russianDraughts, russianDraughts);
+        return new GameComponents(russianDraughtsManager, new RussianDraughtsScreen(russianDraughtsManager));
     }
 
     @Override

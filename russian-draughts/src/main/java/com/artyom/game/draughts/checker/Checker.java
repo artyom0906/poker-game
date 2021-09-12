@@ -1,30 +1,25 @@
 package com.artyom.game.draughts.checker;
 
-import com.artyom.game.api.Entity;
-import com.artyom.game.api.Input;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.awt.*;
-
-public class Checker extends Entity {
+public class Checker {
     private final CheckerColor color;
     private int rank;
     private int file;
     private boolean isKing;
+    private Point2D point;
 
-    public Checker(CheckerColor color) {
-        super(0, 0);
+    protected Checker(Checker checker) {
+        this.color = checker.color;
+        this.isKing = checker.isKing;
+        this.point = checker.point;
+    }
+
+    private Checker(CheckerColor color, Point2D point) {
         this.color = color;
         this.isKing = false;
-    }
-
-    @Override
-    public void render(Graphics2D g) {
-
-    }
-
-    @Override
-    public void update(Input input) {
-
     }
 
     public boolean isKing() {
@@ -33,5 +28,22 @@ public class Checker extends Entity {
 
     public void makeKing() {
         isKing = true;
+    }
+
+    public static InitialPositionBuilder builder(CheckerColor color) {
+        return new InitialPositionBuilder(color);
+    }
+
+    public record InitialPositionBuilder(CheckerColor color) {
+        public List<Checker> build() {
+            List<Checker> checkers = new ArrayList<>();
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 2; j++) {
+                    if (i % 2 == j % 2)
+                        checkers.add(new Checker(this.color, new Point2D.Double(i, j)));
+                }
+            }
+            return checkers;
+        }
     }
 }

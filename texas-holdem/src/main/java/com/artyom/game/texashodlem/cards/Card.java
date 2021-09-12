@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
 
-public class Card extends Entity {
+public class Card implements Entity {
     private final Rank rank;
     private final Suit suit;
     private Sprite sprite;
@@ -18,6 +18,8 @@ public class Card extends Entity {
     public static final int	SPRITE_SCALE_X		= 81;
     public static final int	SPRITE_SCALE_Y		= 117;
     private static final TextureAtlas textureAtlas = new TextureAtlas(Card.class.getClassLoader().getResourceAsStream("img.png"));
+    private float x;
+    private float y;
 
     /**
      * @param rank Rank of card
@@ -25,7 +27,6 @@ public class Card extends Entity {
      * @param hidden if hidden - set sprite to the back of the card, otherwise set sprite to the card itself
      */
     public Card(Rank rank, Suit suit, boolean hidden) {
-        super(0, 0);
         this.rank = rank;
         this.suit = suit;
 
@@ -56,9 +57,6 @@ public class Card extends Entity {
     public void setX(int x){
         this.x = x;
     }
-    public void setY(int y){
-        this.y = y;
-    }
 
     @Override
     public void render(Graphics2D g) {
@@ -79,6 +77,7 @@ public class Card extends Entity {
      * @return value of field of type enumType
      * @throws IllegalAccessException if field is a private field of a different class. Supposed to never happen
      */
+    @SuppressWarnings("unchecked")
     public <T extends Enum<T>> T getGetParam(Class<T> enumType) throws IllegalAccessException {
         for (Field field : this.getClass().getDeclaredFields()) {
             if(field.getType().equals(enumType)){

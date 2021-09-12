@@ -18,7 +18,7 @@ import static com.artyom.game.texashodlem.TexasHoldem.WIDTH;
 
 public class HumanPlayer extends TexasHoldemPlayer {
 
-    UserInterface userInterface = new UserInterface((TexasHoldem)this.getGame(),0, 0);
+    UserInterface userInterface = new UserInterface((TexasHoldem)this.getGame());
     PlayerEventHandler handler;
     private Exception exception;
     private int timeout;

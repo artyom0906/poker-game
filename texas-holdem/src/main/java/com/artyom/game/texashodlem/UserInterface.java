@@ -17,7 +17,7 @@ Buttons:
     [Call] is available if bet is raised
     [Fold]
 */
-public class UserInterface extends Entity implements StateDependent {
+public class UserInterface implements StateDependent, Entity {
     private final Button raise;
     private final Button call;
     private final Button fold;
@@ -25,8 +25,7 @@ public class UserInterface extends Entity implements StateDependent {
     private final Button disconnect;
     private TexasHoldem texasHoldem;
     Function<String, String>  handler;
-    public UserInterface(TexasHoldem texasHoldem, float x, float y) {
-        super(x, y);
+    public UserInterface(TexasHoldem texasHoldem) {
         this.texasHoldem = texasHoldem;
         raise = new Button(30, 560, 80, 30, "Raise", true, ()->{
             handler.apply("raised");

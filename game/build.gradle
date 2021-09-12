@@ -37,7 +37,7 @@ dependencies {
     implementation project(':game-engine')
 
     //implementation project(':russian-draughts')
-    implementation project(':texas-holdem')
+    //implementation project(':texas-holdem')
 }
 jar {
     manifest {

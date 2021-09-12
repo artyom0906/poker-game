@@ -7,13 +7,15 @@ import java.awt.geom.Rectangle2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Button extends Entity{
+public class Button implements Entity{
     private Runnable action;
     private final int width, height;
     private boolean hidden;
     private  String text;
     private boolean clicked = false;
     private int clicked_time = 0;
+    private float x;
+    private float y;
 
     @Override
     public void init(GameInputRegistry registry) {
@@ -39,7 +41,6 @@ public class Button extends Entity{
     }
 
     public Button(float x, float y, int width, int height, String text, boolean enabled, Runnable action) {
-        super(x, y);
         this.action = action;
         this.width = width;
         this.height = height;
