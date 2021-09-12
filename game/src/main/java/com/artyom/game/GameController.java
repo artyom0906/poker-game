@@ -1,6 +1,7 @@
 package com.artyom.game;
 
 import com.artyom.game.api.GameComponents;
+import com.artyom.game.api.GameInputRegistry;
 import com.artyom.game.engine.Renderer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,7 +66,8 @@ public class GameController implements Initializable {
         });
         runSelectedGame.setOnAction(event -> {
             GameComponents components = table.getSelectionModel().getSelectedItem().getGame().module().run();
-            Renderer renderer = new Renderer(new GameScreen(components));
+            GameInputRegistry registry = new GameInputRegistry();
+            Renderer renderer = new Renderer(new GameScreen(components, registry), registry);
             renderer.start();
         });
     }

@@ -17,9 +17,6 @@ public abstract class TexasHoldemPlayer extends Player {
     private boolean active;
     private List<Card> cards;
 
-    TexasHoldemPlayer left;
-    TexasHoldemPlayer right;
-
     private Map<Combo, Integer> combos = new HashMap<>();
     private int maxRank;
 
@@ -74,22 +71,6 @@ public abstract class TexasHoldemPlayer extends Player {
     }
     public void giveCards(List<Card> takeTop) {
         this.cards = takeTop;
-    }
-
-    public TexasHoldemPlayer getLeft() {
-        return left;
-    }
-
-    public void setLeft(TexasHoldemPlayer left) {
-        this.left = left;
-    }
-
-    public TexasHoldemPlayer getRight() {
-        return right;
-    }
-
-    public void setRight(TexasHoldemPlayer right) {
-        this.right = right;
     }
 
     public void countCombos(){

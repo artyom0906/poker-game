@@ -2,7 +2,7 @@ package com.artyom.game.api;
 
 import java.awt.Graphics2D;
 
-public abstract class Entity {
+public abstract class Entity implements Renderable{
 
 	protected float			x;
 	protected float			y;
@@ -11,9 +11,4 @@ public abstract class Entity {
 		this.x = x;
 		this.y = y;
 	}
-
-	public abstract void update(Input input);
-
-	public abstract void render(Graphics2D g);
-
 }

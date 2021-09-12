@@ -1,8 +1,8 @@
 package com.artyom.game.engine.IO;
 
+
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 import java.util.Arrays;
 
 import javax.swing.AbstractAction;
@@ -11,7 +11,7 @@ import javax.swing.KeyStroke;
 
 import static java.awt.event.MouseEvent.NOBUTTON;
 
-public class Input extends JComponent implements MouseListener {
+public class Input extends JComponent{
 
 	private boolean[]	map;
 	private int clickedButton = NOBUTTON;
@@ -36,7 +36,6 @@ public class Input extends JComponent implements MouseListener {
 					map[KEY_CODE] = false;
 				}
 			});
-
 		}
 	}
 
@@ -46,49 +45,5 @@ public class Input extends JComponent implements MouseListener {
 
 	public boolean getKey(int keyCode) {
 		return map[keyCode];
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		clickedButton = e.getButton();
-		mouseX = e.getX();
-		mouseY = e.getY();
-		System.out.println(e);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		clickedButton = NOBUTTON;
-		System.out.println(e);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
-	}
-
-	public int getClickedButton() {
-		return clickedButton;
-	}
-
-	public int getMouseX() {
-		return mouseX;
-	}
-
-	public int getMouseY() {
-		return mouseY;
-	}
-
-	public void updateStatus() {
-		clickedButton = NOBUTTON;
 	}
 }

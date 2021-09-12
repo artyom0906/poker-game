@@ -15,6 +15,28 @@ public class Button extends Entity{
     private boolean clicked = false;
     private int clicked_time = 0;
 
+    @Override
+    public void init(GameInputRegistry registry) {
+        registry.register(new InputHandler() {
+            @Override
+            public void mouseClicked(Point position, int button) {
+                if(button == MouseEvent.BUTTON1 && !hidden){
+                    if(findPoint((int)x, (int)y, (int)x+width, (int)y+height, position.x, position.y)){
+                        clicked = true;
+                        clicked_time = 10;
+                        action.run();
+                    }
+                }else {
+                    if(clicked_time>0){
+                        clicked_time--;
+                    }else {
+                        clicked = false;
+                    }
+                }
+            }
+        });
+
+    }
 
     public Button(float x, float y, int width, int height, String text, boolean enabled, Runnable action) {
         super(x, y);
@@ -27,19 +49,6 @@ public class Button extends Entity{
 
     @Override
     public void update(Input input) {
-        if(input.getClickedButton() == MouseEvent.BUTTON1 && !hidden){
-            if(this.FindPoint((int)x, (int)y, (int)x+width, (int)y+height, input.getMouseX(), input.getMouseY())){
-                clicked = true;
-                clicked_time = 10;
-                action.run();
-            }
-        }else {
-            if(clicked_time>0){
-                clicked_time--;
-            }else {
-                clicked = false;
-            }
-        }
     }
 
     @Override
@@ -54,7 +63,7 @@ public class Button extends Entity{
         }
     }
 
-    boolean FindPoint(int x1, int y1, int x2, int y2, int x, int y)
+    boolean findPoint(int x1, int y1, int x2, int y2, int x, int y)
     {
         return x >= x1 && x <= x2 && y >= y1 && y <= y2;
     }

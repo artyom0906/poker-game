@@ -32,9 +32,11 @@ dependencies {
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    //module('game-engine')
+
     implementation project(':gameApi')
     implementation project(':game-engine')
+
+    //implementation project(':russian-draughts')
     implementation project(':texas-holdem')
 }
 jar {

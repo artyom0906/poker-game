@@ -27,18 +27,6 @@ public class TexasHoldemModule implements GameModule {
         TexasHoldemPlayer north = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.TOP);
         TexasHoldemPlayer west = new ComputerPlayer(texasHoldem, 1000L, PlayerPosition.LEFT);
 
-        south.setLeft(west);
-        south.setRight(east);
-
-        west.setLeft(north);
-        west.setRight(south);
-
-        north.setLeft(east);
-        north.setRight(west);
-
-        east.setLeft(south);
-        east.setRight(north);
-
         texasHoldem.getPlayers().add(south);
         texasHoldem.getPlayers().add(east);
         texasHoldem.getPlayers().add(north);

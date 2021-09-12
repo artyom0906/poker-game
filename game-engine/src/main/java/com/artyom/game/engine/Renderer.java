@@ -1,6 +1,7 @@
 package com.artyom.game.engine;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseListener;
 
 import com.artyom.game.engine.IO.Input;
 import com.artyom.game.engine.api.Screen;
@@ -23,16 +24,18 @@ public class Renderer implements Runnable {
 	private Thread				gameThread;
 	private final Graphics2D	graphics;
 	private final Input			input;
+	private final MouseListener mouseListener;
 
 	private final Screen screen;
 
-	public Renderer(Screen screen) {
+	public Renderer(Screen screen, MouseListener mouseListener) {
 		this.screen = screen;
 		running = false;
 		Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
 		graphics = Display.getGraphics();
+		this.mouseListener = mouseListener;
 		input = new Input();
-		Display.addInputListener(input);
+		Display.addInputListener(input, mouseListener);
 		screen.init(this);
 	}
 
@@ -66,7 +69,6 @@ public class Renderer implements Runnable {
 
 	private void update() {
 		screen.update(input);
-		input.updateStatus();
 	}
 
 	private void render() {

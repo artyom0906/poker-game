@@ -2,4 +2,5 @@ include 'game-engine'
 include 'game'
 include 'gameApi'
 include 'texas-holdem'
+include 'russian-draughts'
 

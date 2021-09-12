@@ -80,8 +80,6 @@ public class BettingRound implements GameState {
                     } catch (NotEnoughChipsException ignored) {}
                 }
                 case "fold"->{
-                    player.getLeft().setRight(player.getRight());
-                    player.getRight().setLeft(player.getLeft());
                     texasHoldem.getCurrentPlayers().remove(player);
                     texasHoldem.setCurrentPlayers(texasHoldem.getCurrentPlayers());
                 }

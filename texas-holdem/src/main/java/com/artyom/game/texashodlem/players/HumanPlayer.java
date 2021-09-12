@@ -1,5 +1,6 @@
 package com.artyom.game.texashodlem.players;
 
+import com.artyom.game.api.GameInputRegistry;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.Input;
 import com.artyom.game.texashodlem.TexasHoldem;
@@ -24,6 +25,12 @@ public class HumanPlayer extends TexasHoldemPlayer {
 
     public HumanPlayer(GameManager game, long chips) {
         super(game, chips);
+    }
+
+    @Override
+    public void init(GameInputRegistry registry) {
+        System.out.println("init human");
+        userInterface.init(registry);
     }
 
     @Override

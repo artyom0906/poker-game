@@ -3,6 +3,7 @@ package com.artyom.game.texashodlem;
 import com.artyom.game.api.*;
 import com.artyom.game.texashodlem.cards.Card;
 import com.artyom.game.texashodlem.cards.Deck;
+import com.artyom.game.texashodlem.players.HumanPlayer;
 import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 import com.artyom.game.texashodlem.state.DealCardsToPlayers;
 import com.artyom.game.texashodlem.state.StartRound;
@@ -77,8 +78,11 @@ public class TexasHoldem extends GameManager implements GameScreen {
     }
 
     @Override
-    public void init() {
+    public void init(GameInputRegistry inputRegistry) {
         getPlayers().forEach(player -> {
+            if(player instanceof HumanPlayer player1){
+                player1.init(inputRegistry);
+            }
             ((TexasHoldemPlayer)player).onEvent(events -> {
                 state.handleEvent(events, this);
             });

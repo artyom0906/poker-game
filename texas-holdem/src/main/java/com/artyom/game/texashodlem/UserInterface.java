@@ -45,6 +45,15 @@ public class UserInterface extends Entity implements StateDependent {
         });
     }
 
+    @Override
+    public void init(GameInputRegistry registry) {
+        raise.init(registry);
+        call.init(registry);
+        fold.init(registry);
+        newRound.init(registry);
+        disconnect.init(registry);
+    }
+
     public void setHandler(Function<String, String> handler){
         this.handler = handler;
     }

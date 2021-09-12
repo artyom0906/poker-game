@@ -16,13 +16,13 @@ import java.net.URL;
 public class Main extends Application {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		GameLoader loader = new GameLoader();
-		GameInfo info = loader.loadGame(new File("C:\\Users\\matro\\Documents\\kursach\\poker-game\\texas-holdem\\build\\libs"));
-		GameComponents components = info.getGame().module().run();
-		Renderer renderer = new Renderer(new GameScreen(components));
-		renderer.start();
+		//GameLoader loader = new GameLoader();
+		//GameInfo info = loader.loadGame(new File("C:\\Users\\matro\\Documents\\kursach\\poker-game\\texas-holdem\\build\\libs"));
+		//GameComponents components = info.getGame().module().run();
+		//Renderer renderer = new Renderer(new GameScreen(components));
+		//renderer.start();
 
-		//launch(args);
+		launch(args);
 
 	}
 

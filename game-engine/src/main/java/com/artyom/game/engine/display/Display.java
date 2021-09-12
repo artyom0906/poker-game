@@ -88,8 +88,8 @@ public abstract class Display {
 
 	}
 
-	public static void addInputListener(Input inputListener) {
-		content.addMouseListener((MouseListener) inputListener);
+	public static void addInputListener(Input inputListener, MouseListener listener) {
+		content.addMouseListener( listener);
 		window.add(inputListener);
 	}
 

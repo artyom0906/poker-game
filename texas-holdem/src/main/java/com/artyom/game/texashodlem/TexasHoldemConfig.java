@@ -4,7 +4,6 @@ import com.artyom.game.api.ModuleConfiguration;
 
 public class TexasHoldemConfig implements ModuleConfiguration {
 
-
     public TexasHoldemConfig(){
     }
 
