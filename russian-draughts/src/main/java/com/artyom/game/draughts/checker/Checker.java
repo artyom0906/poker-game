@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Checker {
     private final CheckerColor color;
-    private int rank;
-    private int file;
     private boolean isKing;
     private Point2D point;
 
@@ -20,6 +18,7 @@ public class Checker {
     private Checker(CheckerColor color, Point2D point) {
         this.color = color;
         this.isKing = false;
+        this.point = point;
     }
 
     public boolean isKing() {
