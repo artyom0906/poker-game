@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="russian-draughts">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/russian-draughts/build/libs/russian-draughts.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

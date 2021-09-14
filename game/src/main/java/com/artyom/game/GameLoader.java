@@ -30,7 +30,7 @@ public class GameLoader {
                         e -> (String) e.getKey(),
                         e -> (String) e.getValue()
                 ));
-
+        System.err.println(mapProp.get("game"));
         GameModule module = (GameModule) child.loadClass(mapProp.get("game")).getDeclaredConstructor().newInstance();
         Game game = new Game(module, module.load());
         ImageView imageView = new ImageView(new Image(Objects.requireNonNull(child.getResourceAsStream(game.configuration().getImage()))));

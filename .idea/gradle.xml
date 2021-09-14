@@ -12,6 +12,9 @@
             <option value="$PROJECT_DIR$/game" />
             <option value="$PROJECT_DIR$/game-engine" />
             <option value="$PROJECT_DIR$/gameApi" />
+            <option value="$PROJECT_DIR$/russian-draughts" />
+            <option value="$PROJECT_DIR$/russian-draughts/graphics" />
+            <option value="$PROJECT_DIR$/russian-draughts/logic" />
             <option value="$PROJECT_DIR$/texas-holdem" />
           </set>
         </option>

@@ -36,7 +36,7 @@ dependencies {
     implementation project(':gameApi')
     implementation project(':game-engine')
 
-    //implementation project(':russian-draughts')
+    //implementation project(':russian-com.artyom.game.draughts')
     //implementation project(':texas-holdem')
 }
 jar {
