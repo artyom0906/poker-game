@@ -11,6 +11,7 @@ public abstract class GameManager {
         this.players = players;
     }
 
+
     public List<Player> getPlayers() {return players;}
 
     public void doAction() {state.doAction(this);}
@@ -23,5 +24,9 @@ public abstract class GameManager {
 
     public void nextState() {
         state.next(this);
+    }
+
+    public GameState getState() {
+        return state;
     }
 }

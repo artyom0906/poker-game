@@ -7,6 +7,7 @@ public abstract class Player implements Entity {
 	private final GameManager game;
 
 	public Player(GameManager game) {
+		game.getPlayers().add(this);
 		this.game = game;
 	}
 

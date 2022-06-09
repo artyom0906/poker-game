@@ -4,4 +4,5 @@ include 'gameApi'
 include 'texas-holdem'
 include 'russian-draughts:graphics'
 include 'russian-draughts:logic'
+include 'network'
 

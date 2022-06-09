@@ -39,15 +39,29 @@ dependencies {
     //implementation project(':russian-com.artyom.game.draughts')
     //implementation project(':texas-holdem')
 }
+
 jar {
     manifest {
-        attributes(
-                'Main-Class': application.mainClass
-        )
-        from {
-            configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-        }
+        attributes["Main-Class"] = 'com.artyom.game.Main'
     }
+}
+
+task fatJar(type: Jar) {
+    manifest.from jar.manifest
+    classifier = 'all'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+
+artifacts {
+    archives fatJar
 }
 test {
     useJUnitPlatform()

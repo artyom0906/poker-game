@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Checker {
+    public CheckerColor getColor() {
+        return color;
+    }
+
     protected final CheckerColor color;
     private boolean isKing;
     protected Point2D point;
@@ -46,5 +50,9 @@ public class Checker {
             }
             return checkers;
         }
+    }
+
+    public Point2D getPoint() {
+        return point;
     }
 }
