@@ -46,6 +46,8 @@ public class Button implements Entity{
         this.height = height;
         this.text = text;
         this.hidden = !enabled;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class Button implements Entity{
             if(clicked)
                 drawButton(g, (int)x, (int)y, width, height, text, 0xA3A3A3);
             else
-            drawButton(g, (int)x, (int)y, width, height, text, 0xC3C3C3);
+                drawButton(g, (int)x, (int)y, width, height, text, 0xC3C3C3);
         }else {
             drawButton(g, (int)x, (int)y, width, height, text, 0x2C2C2C);
         }

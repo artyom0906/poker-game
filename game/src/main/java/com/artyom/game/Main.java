@@ -1,14 +1,11 @@
 package com.artyom.game;
 
-import com.artyom.game.api.GameComponents;
-import com.artyom.game.engine.Renderer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -22,6 +19,8 @@ public class Main extends Application {
 		//Renderer renderer = new Renderer(new GameScreen(components));
 		//renderer.start();
 
+
+
 		launch(args);
 
 	}
@@ -30,6 +29,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
 		URL xmlUrl = getClass().getResource("/mainScene.fxml");
+		assert xmlUrl != null;
+		System.out.println(new String(xmlUrl.openStream().readAllBytes()));
 		loader.setLocation(xmlUrl);
 		Parent root = loader.load();
 		GameController controller = loader.getController();

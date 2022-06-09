@@ -3,6 +3,7 @@ package com.artyom.game.draughts.graphics.board;
 import com.artyom.game.api.Entity;
 import com.artyom.game.api.GameInputRegistry;
 import com.artyom.game.api.Input;
+import com.artyom.game.api.Renderable;
 import com.artyom.game.draughts.logic.board.Board;
 import com.artyom.game.draughts.logic.checker.Checker;
 import com.artyom.game.draughts.graphics.checker.CheckerRenderable;
@@ -10,23 +11,12 @@ import com.artyom.game.draughts.graphics.checker.CheckerRenderable;
 import java.awt.*;
 import java.util.stream.Collectors;
 
-public class BoardRenderable extends Board<CheckerRenderable> implements Entity {
+public class BoardRenderable implements Renderable {
 
-    public BoardRenderable(Board<Checker> board) {
-        System.out.println(board.getPieces());
-        this.getPieces().addAll(board.getPieces().stream().map(CheckerRenderable::new).collect(Collectors.toList()));
-    }
+    public static final int BOARD_SQUARE_SCALE = 70;
+    public static final int MARGIN_LEFT = 400-BOARD_SQUARE_SCALE*4;
+    public static final int MARGIN_TOP = 300-BOARD_SQUARE_SCALE*4;
 
-    @Override
-    public void init(GameInputRegistry registry) {
-        registry.register(this);
-        this.getPieces().forEach(registry::register);
-    }
-
-    @Override
-    public void update(Input input) {
-        this.getPieces().forEach(piece->piece.update(input));
-    }
 
     @Override
     public void render(Graphics2D g) {
@@ -37,9 +27,9 @@ public class BoardRenderable extends Board<CheckerRenderable> implements Entity 
                     g.setColor(new Color(0xEEEED2));
                 else
                     g.setColor(new Color(0x769756));
-                g.fillRect(Board.MARGIN_LEFT+i*Board.BOARD_SQUARE_SCALE, Board.MARGIN_TOP+j*Board.BOARD_SQUARE_SCALE, Board.BOARD_SQUARE_SCALE, Board.BOARD_SQUARE_SCALE);
+                g.fillRect(MARGIN_LEFT+i*BOARD_SQUARE_SCALE, MARGIN_TOP+j*BOARD_SQUARE_SCALE,
+                        BOARD_SQUARE_SCALE, BOARD_SQUARE_SCALE);
             }
         }
-        this.getPieces().forEach(piece->piece.render(g));
     }
 }

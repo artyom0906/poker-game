@@ -1,16 +1,29 @@
 package com.artyom.game.draughts.logic.board;
 
+import com.artyom.game.api.GameManager;
+import com.artyom.game.draughts.logic.checker.Checker;
+import com.artyom.game.draughts.logic.components.RussianDraughtsManager;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board<T> {
-    public static final int BOARD_SQUARE_SCALE = 70;
-    public static final int MARGIN_LEFT = 400-BOARD_SQUARE_SCALE*4;
-    public static final int MARGIN_TOP = 300-BOARD_SQUARE_SCALE*4;
+public class Board {
 
-    private final List<T> pieces = new ArrayList<T>();
 
-    public List<T> getPieces() {
+    private final RussianDraughtsManager manager;
+    public Board(RussianDraughtsManager manager){
+        this.manager = manager;
+    }
+
+    private final List<Checker> pieces = new ArrayList<>();
+
+    public List<Checker> getPieces() {
         return pieces;
+    }
+
+    public void update(Checker checker, Point new_position) {
+
+        System.out.println(pieces.size());
     }
 }
