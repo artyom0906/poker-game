@@ -9,7 +9,7 @@ import com.artyom.game.draughts.logic.components.RussianDraughtsManager;
 public class GameStart implements GameState {
     @Override
     public void next(GameManager game) {
-
+        game.setState(new PlayerMove(CheckerColor.WHITE));
     }
 
     @Override
@@ -19,10 +19,8 @@ public class GameStart implements GameState {
 
     @Override
     public void doAction(GameManager game) {
-        if (game instanceof RussianDraughtsManager russianDraughts) {
-            russianDraughts.getBoard().getPieces().addAll(Checker.builder(CheckerColor.BLACK).build());
-            russianDraughts.getBoard().getPieces().addAll(Checker.builder(CheckerColor.WHITE).build());
-        }
         game.nextState();
     }
+
+
 }

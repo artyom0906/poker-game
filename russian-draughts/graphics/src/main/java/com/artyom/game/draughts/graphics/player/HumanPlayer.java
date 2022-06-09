@@ -3,12 +3,12 @@ package com.artyom.game.draughts.graphics.player;
 import com.artyom.game.api.GameInputRegistry;
 import com.artyom.game.api.GameManager;
 import com.artyom.game.api.Input;
-import com.artyom.game.draughts.graphics.board.BoardRenderable;
-import com.artyom.game.draughts.graphics.checker.CheckerRenderable;
-import com.artyom.game.draughts.logic.board.Board;
+import com.artyom.game.draughts.graphics.board.BoardRenderer;
+import com.artyom.game.draughts.graphics.checker.CheckerRenderer;
 import com.artyom.game.draughts.logic.checker.Checker;
 import com.artyom.game.draughts.logic.checker.CheckerColor;
 import com.artyom.game.draughts.logic.components.RussianDraughtsManager;
+import com.artyom.game.draughts.logic.state.PlayerMove;
 
 import java.awt.*;
 import java.util.Optional;
@@ -17,7 +17,6 @@ import java.util.Set;
 public class HumanPlayer extends DraughtsPlayer{
 
     private final RussianDraughtsManager game;
-    private CheckerRenderable selectedChecker;
     public HumanPlayer(GameManager game, CheckerColor color, Set<Checker> checkers) {
         super(game, color, checkers);
         this.game = (RussianDraughtsManager) game;
@@ -41,30 +40,30 @@ public class HumanPlayer extends DraughtsPlayer{
     @Override
     public void mouseClicked(Point position, int button) {
 
+        Point point = new Point(position.x - BoardRenderer.MARGIN_LEFT, position.y - BoardRenderer.MARGIN_TOP);
 
-        Point point = new Point(position.x - BoardRenderable.MARGIN_LEFT, position.y - BoardRenderable.MARGIN_TOP);
-
-        point.x /= BoardRenderable.BOARD_SQUARE_SCALE;
-        point.y /=BoardRenderable.BOARD_SQUARE_SCALE;
+        point.x /= BoardRenderer.BOARD_SQUARE_SCALE;
+        point.y /= BoardRenderer.BOARD_SQUARE_SCALE;
 
         System.out.println("x: " + point.x + " y: " + point.y);
 
-        Optional<CheckerRenderable> checkerR = this.pieces.stream().filter(checker ->
-                checker.getChecker().getPoint().getX() == point.x &&
-                checker.getChecker().getPoint().getY() == point.y
+        Optional<Checker> checkerR = this.render.getCheckers().stream().filter(checker ->
+                checker.getPoint().getX() == point.x &&
+                checker.getPoint().getY() == point.y && checker.isActive()
         ).findFirst();
+        System.out.println(game.getState());
 
-        if(checkerR.isPresent()) {
+        if(checkerR.isPresent() && game.getState() instanceof PlayerMove move &&
+                checkerR.get().getColor().equals(move.getColor())) {
             System.out.println("exist");
-            if(!checkerR.get().isSelected()) {
-                selectedChecker = checkerR.get();
+            if(render.getSelected()==null || render.getSelected()!=null && !checkerR.get().equals(render.getSelected())) {
+                render.setSelected(checkerR.get());
             }else {
-                selectedChecker = null;
+                render.setSelected(null);
             }
-            checkerR.get().setSelected(!checkerR.get().isSelected());
-        }else {
-            selectedChecker.setSelected(false);
-            game.getBoard().update(selectedChecker.getChecker(), point);
+        }else if(render.getSelected()!=null){
+            game.getBoard().update(render.getSelected(), point);
+            render.setSelected(null);
         }
         super.mouseClicked(position, button);
     }

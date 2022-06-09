@@ -1,17 +1,10 @@
 package com.artyom.game.draughts.graphics.board;
 
-import com.artyom.game.api.Entity;
-import com.artyom.game.api.GameInputRegistry;
-import com.artyom.game.api.Input;
 import com.artyom.game.api.Renderable;
-import com.artyom.game.draughts.logic.board.Board;
-import com.artyom.game.draughts.logic.checker.Checker;
-import com.artyom.game.draughts.graphics.checker.CheckerRenderable;
 
 import java.awt.*;
-import java.util.stream.Collectors;
 
-public class BoardRenderable implements Renderable {
+public class BoardRenderer implements Renderable {
 
     public static final int BOARD_SQUARE_SCALE = 70;
     public static final int MARGIN_LEFT = 400-BOARD_SQUARE_SCALE*4;

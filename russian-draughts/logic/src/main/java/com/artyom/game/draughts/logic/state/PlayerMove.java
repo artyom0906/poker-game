@@ -28,5 +28,9 @@ public class PlayerMove implements GameState {
     public void doAction(GameManager game) {
 
     }
+
+    public CheckerColor getColor() {
+        return color;
+    }
 }
 

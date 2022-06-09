@@ -33,19 +33,19 @@ public class RussianDraughtsModule implements GameModule {
 
         CheckerColor humanColor = new Random().nextInt(2)==0? CheckerColor.WHITE:CheckerColor.BLACK;
 
-        Set<Checker> humanCheckers = russianDraughtsManager.getBoard().getPieces()
+        Set<Checker> humanCheckers = russianDraughtsManager.getBoard().getPieces(humanColor)
                 .stream()
                 .filter(checker -> checker.getColor().equals(humanColor))
                 .collect(Collectors.toSet());
         new HumanPlayer(russianDraughtsManager, humanColor, humanCheckers);
 
         CheckerColor computerColor = humanColor.next();
-        Set<Checker> computerCheckers = russianDraughtsManager.getBoard().getPieces()
+        Set<Checker> computerCheckers = russianDraughtsManager.getBoard().getPieces(computerColor)
                 .stream()
                 .filter(checker -> checker.getColor().equals(computerColor))
                 .collect(Collectors.toSet());
 
-        new ComputerPlayer(russianDraughtsManager, computerColor, computerCheckers);
+        new HumanPlayer(russianDraughtsManager, computerColor, computerCheckers);
 
         return new GameComponents(russianDraughtsManager, new RussianDraughtsScreen(russianDraughtsManager));
     }
