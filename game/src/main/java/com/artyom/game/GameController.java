@@ -2,6 +2,8 @@ package com.artyom.game;
 
 import com.artyom.game.api.GameComponents;
 import com.artyom.game.api.GameInputRegistry;
+import com.artyom.game.api.GameManager;
+import com.artyom.game.api.GameModule;
 import com.artyom.game.engine.Renderer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -65,9 +68,10 @@ public class GameController implements Initializable {
             }
         });
         runSelectedGame.setOnAction(event -> {
-            GameComponents components = table.getSelectionModel().getSelectedItem().getGame().module().run();
+            GameModule module = table.getSelectionModel().getSelectedItem().getGame().module();
+            GameComponents components = module.run();
             GameInputRegistry registry = new GameInputRegistry();
-            Renderer renderer = new Renderer(new GameScreen(components, registry), registry);
+            Renderer renderer = new Renderer(new GameScreen(components, registry), registry, module);
             renderer.start();
         });
     }

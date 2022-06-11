@@ -3,36 +3,41 @@ package com.artyom.game.draughts.graphics.components;
 import com.artyom.game.api.GameInputRegistry;
 import com.artyom.game.api.GameScreen;
 import com.artyom.game.api.Input;
-import com.artyom.game.draughts.logic.board.Board;
 import com.artyom.game.draughts.logic.components.RussianDraughtsManager;
-import com.artyom.game.draughts.graphics.board.BoardRenderable;
+import com.artyom.game.draughts.graphics.board.BoardRenderer;
 
 import java.awt.*;
 
 public class RussianDraughtsScreen implements GameScreen {
 
-    private BoardRenderable BoardRenderable;
+    private BoardRenderer BoardRenderer;
     private RussianDraughtsManager russianDraughtsManager;
+    private GameInputRegistry registry;
 
     public RussianDraughtsScreen(RussianDraughtsManager russianDraughtsManager) {
         this.russianDraughtsManager = russianDraughtsManager;
-        BoardRenderable = new BoardRenderable();
+        BoardRenderer = new BoardRenderer(russianDraughtsManager);
     }
 
     @Override
     public void init(GameInputRegistry registry) {
+        this.registry = registry;
         this.russianDraughtsManager.getPlayers().forEach(player -> player.init(registry));
-        BoardRenderable.init(registry);
+        BoardRenderer.init(registry);
     }
 
     @Override
     public void render(Graphics2D graphics) {
-        BoardRenderable.render(graphics);
+        BoardRenderer.render(graphics);
         this.russianDraughtsManager.getPlayers().forEach(player -> player.render(graphics));
     }
 
     @Override
     public void update(Input input) {
+    }
+
+    public GameInputRegistry getRegistry() {
+        return registry;
     }
 }
 

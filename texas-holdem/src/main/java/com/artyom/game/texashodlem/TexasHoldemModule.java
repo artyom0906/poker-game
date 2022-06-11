@@ -1,5 +1,6 @@
 package com.artyom.game.texashodlem;
 
+import com.artyom.game.api.ConfigComponent;
 import com.artyom.game.api.GameComponents;
 import com.artyom.game.api.GameModule;
 import com.artyom.game.api.ModuleConfiguration;
@@ -9,6 +10,7 @@ import com.artyom.game.texashodlem.players.PlayerPosition;
 import com.artyom.game.texashodlem.players.TexasHoldemPlayer;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class TexasHoldemModule implements GameModule {
     public TexasHoldemModule(){
@@ -46,7 +48,7 @@ public class TexasHoldemModule implements GameModule {
     }
 
     @Override
-    public JComponent getConfigurationPage() {
+    public ConfigComponent getConfigurationPage(ActionListener listener) {
         return null;
     }
 }

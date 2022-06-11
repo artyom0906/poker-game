@@ -2,7 +2,9 @@ package com.artyom.game.draughts.logic.checker;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Checker {
     public CheckerColor getColor() {
@@ -12,6 +14,8 @@ public class Checker {
     protected final CheckerColor color;
     private boolean isKing;
     protected Point2D point;
+
+    private boolean active = true;
 
     protected Checker(Checker checker) {
         this.color = checker.color;
@@ -37,9 +41,17 @@ public class Checker {
         return new InitialPositionBuilder(color);
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
     public record InitialPositionBuilder(CheckerColor color) {
-        public List<Checker> build() {
-            List<Checker> checkers = new ArrayList<>();
+        public Set<Checker> build() {
+            Set<Checker> checkers = new HashSet<>();
             int start = color == CheckerColor.BLACK?0:5;
             int end = color == CheckerColor.BLACK?3:8;
             for (int i = 0; i < 8; i++) {
@@ -54,5 +66,14 @@ public class Checker {
 
     public Point2D getPoint() {
         return point;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[" + this.getPoint() + " " + this.getColor() + "]";
+    }
+
+    public void setKing(boolean king) {
+        isKing = king;
     }
 }
