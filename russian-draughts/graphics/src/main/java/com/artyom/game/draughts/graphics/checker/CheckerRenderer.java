@@ -45,28 +45,30 @@ public class CheckerRenderer implements Renderable {
 
     @Override
     public void render(Graphics2D g) {
-        checkers.stream().filter(Checker::isActive).forEach(checker -> {
-            if (checker.equals(selected)) {
-                g.setColor(new Color(0xbaca44));
-                g.fillRect(
-                        BoardRenderer.MARGIN_LEFT + (int) checker.getPoint().getX() * BoardRenderer.BOARD_SQUARE_SCALE,
-                        BoardRenderer.MARGIN_TOP + (int) checker.getPoint().getY() * BoardRenderer.BOARD_SQUARE_SCALE,
-                        BoardRenderer.BOARD_SQUARE_SCALE,
-                        BoardRenderer.BOARD_SQUARE_SCALE
-                );
-            }
-            if(checker.isKing()){
-                kingSprite.render(g,
-                        BoardRenderer.MARGIN_LEFT + (float) checker.getPoint().getX() * BoardRenderer.BOARD_SQUARE_SCALE + 5,
-                        BoardRenderer.MARGIN_TOP + (float) checker.getPoint().getY() * BoardRenderer.BOARD_SQUARE_SCALE + 5
-                );
-            }else {
-                sprite.render(g,
-                        BoardRenderer.MARGIN_LEFT + (float) checker.getPoint().getX() * BoardRenderer.BOARD_SQUARE_SCALE + 5,
-                        BoardRenderer.MARGIN_TOP + (float) checker.getPoint().getY() * BoardRenderer.BOARD_SQUARE_SCALE + 5
-                );
-            }
-        });
+        synchronized (checkers) {
+            checkers.stream().filter(Checker::isActive).forEach(checker -> {
+                if (checker.equals(selected)) {
+                    g.setColor(new Color(0xbaca44));
+                    g.fillRect(
+                            BoardRenderer.MARGIN_LEFT + (int) checker.getPoint().getX() * BoardRenderer.BOARD_SQUARE_SCALE,
+                            BoardRenderer.MARGIN_TOP + (int) checker.getPoint().getY() * BoardRenderer.BOARD_SQUARE_SCALE,
+                            BoardRenderer.BOARD_SQUARE_SCALE,
+                            BoardRenderer.BOARD_SQUARE_SCALE
+                    );
+                }
+                if (checker.isKing()) {
+                    kingSprite.render(g,
+                            BoardRenderer.MARGIN_LEFT + (float) checker.getPoint().getX() * BoardRenderer.BOARD_SQUARE_SCALE + 5,
+                            BoardRenderer.MARGIN_TOP + (float) checker.getPoint().getY() * BoardRenderer.BOARD_SQUARE_SCALE + 5
+                    );
+                } else {
+                    sprite.render(g,
+                            BoardRenderer.MARGIN_LEFT + (float) checker.getPoint().getX() * BoardRenderer.BOARD_SQUARE_SCALE + 5,
+                            BoardRenderer.MARGIN_TOP + (float) checker.getPoint().getY() * BoardRenderer.BOARD_SQUARE_SCALE + 5
+                    );
+                }
+            });
+        }
     }
 
     public Set<Checker> getCheckers() {

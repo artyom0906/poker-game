@@ -19,6 +19,9 @@ public class GameStart implements GameState {
 
     @Override
     public void doAction(GameManager game) {
+        if(game instanceof RussianDraughtsManager manager){
+            manager.getBoard().genPieces();
+        }
         game.nextState();
     }
 

@@ -12,14 +12,16 @@ public class RussianDraughtsScreen implements GameScreen {
 
     private BoardRenderer BoardRenderer;
     private RussianDraughtsManager russianDraughtsManager;
+    private GameInputRegistry registry;
 
     public RussianDraughtsScreen(RussianDraughtsManager russianDraughtsManager) {
         this.russianDraughtsManager = russianDraughtsManager;
-        BoardRenderer = new BoardRenderer();
+        BoardRenderer = new BoardRenderer(russianDraughtsManager);
     }
 
     @Override
     public void init(GameInputRegistry registry) {
+        this.registry = registry;
         this.russianDraughtsManager.getPlayers().forEach(player -> player.init(registry));
         BoardRenderer.init(registry);
     }
@@ -32,6 +34,10 @@ public class RussianDraughtsScreen implements GameScreen {
 
     @Override
     public void update(Input input) {
+    }
+
+    public GameInputRegistry getRegistry() {
+        return registry;
     }
 }
 

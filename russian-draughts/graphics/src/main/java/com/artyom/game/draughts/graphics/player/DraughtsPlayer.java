@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public abstract class DraughtsPlayer extends Player {
 
     private final CheckerColor color;
-    protected final CheckerRenderer render;
+    protected CheckerRenderer render;
     public DraughtsPlayer(GameManager game, CheckerColor color, Set<Checker> checkers) {
         super(game);
         this.color = color;
@@ -29,4 +29,10 @@ public abstract class DraughtsPlayer extends Player {
     public void render(Graphics2D g) {
         render.render(g);
     }
+
+    public void setCheckers(Set<Checker> checkers){
+        render = new CheckerRenderer(checkers);
+    }
+
+
 }

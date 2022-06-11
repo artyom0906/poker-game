@@ -3,10 +3,13 @@ package com.artyom.game.engine;
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
 
+import com.artyom.game.api.GameModule;
 import com.artyom.game.engine.IO.Input;
 import com.artyom.game.engine.api.Screen;
 import com.artyom.game.engine.display.Display;
 import com.artyom.game.engine.utils.Time;
+
+import javax.swing.*;
 
 public class Renderer implements Runnable {
 
@@ -28,10 +31,10 @@ public class Renderer implements Runnable {
 
 	private final Screen screen;
 
-	public Renderer(Screen screen, MouseListener mouseListener) {
+	public Renderer(Screen screen, MouseListener mouseListener,  GameModule module) {
 		this.screen = screen;
 		running = false;
-		Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
+		Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS, module);
 		graphics = Display.getGraphics();
 		this.mouseListener = mouseListener;
 		input = new Input();
@@ -72,9 +75,11 @@ public class Renderer implements Runnable {
 	}
 
 	private void render() {
-		Display.clear();
-		screen.render(graphics);
-		Display.swapBuffers();
+		if(Display.isCreated()) {
+			Display.clear();
+			screen.render(Display.getGraphics());
+			Display.swapBuffers();
+		}
 	}
 
 	public void run() {

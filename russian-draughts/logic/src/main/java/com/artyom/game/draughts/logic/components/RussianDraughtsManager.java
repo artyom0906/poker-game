@@ -15,12 +15,6 @@ public class RussianDraughtsManager extends GameManager{
         doAction();
     }
 
-    public Player getPlayer(CheckerColor color){
-       /* if(this.getPlayers().get(0) instanceof DraughtsPlayer player && player.getColor().equals(color)){
-            return this.getPlayers().get(0);
-        }*/
-        return this.getPlayers().get(1);
-    }
 
     public Board getBoard() {
         return board;

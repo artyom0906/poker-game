@@ -66,7 +66,7 @@ public enum Combo {
     STRAIGHT(4) {
         @Override
         public int countCombination(List<Card> cards) {
-            List<Rank> ranks_from_cards = cards.stream().map(Card::getRank).distinct().sorted().collect(Collectors.toList());
+            List<Rank> ranks_from_cards = cards.stream().map(Card::getRank).distinct().sorted().toList();
             AtomicInteger consecutive = new AtomicInteger();
             AtomicInteger prevId = new AtomicInteger(ranks_from_cards.get(0).getId());
             ranks_from_cards.forEach(rank -> {
